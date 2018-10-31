@@ -65,6 +65,7 @@ class ShowSentScreen extends StatefulWidget {
 }
 class _SplashScreenState extends State<ShowSentScreen> {
  void next(){
+   super.didChangeDependencies();
    new Future.delayed(new Duration(seconds: 1), (){
      var rount = new MaterialPageRoute(
          builder: (
@@ -86,6 +87,7 @@ class _SplashScreenState extends State<ShowSentScreen> {
       Navigator.of( context ).pushReplacement( rount );
     }
     );
+    print("next page");
   }*/
   String error;
 
@@ -228,6 +230,7 @@ class _SplashScreenState extends State<ShowSentScreen> {
     itemRef1= database.reference( ).child( 'SOS_Case' ).child(mGroupId)/*.child(formattedDate+"-- Uid => "+_uidSOS.text)*/;
     itemRef.child(mGroupId)/*.child(formattedDate+"-- Uid => "+_uidSOS.text)*/.set( sent.toJson( ));
     itemRef1.child( 'location' ).set( sentLocation.toJson( ) );
+    //didChangeDependencies();
     next();
   }
   void setDataLogOut(){
