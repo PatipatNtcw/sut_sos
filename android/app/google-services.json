@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "496630590212",
+    "firebase_url": "https://sutsos-94848.firebaseio.com",
+    "project_id": "sutsos-94848",
+    "storage_bucket": "sutsos-94848.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496630590212:android:f59d94dbd2ab4e81",
+        "android_client_info": {
+          "package_name": "com.example.sutsos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496630590212-870ddnj69vvle0otevibhmsgn4ncc9k9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIMBKYYwnS76BSFkaXojstYgDgUhjeODs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
