@@ -17,6 +17,7 @@ import 'testHome.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sut_sos/style/theme.dart' as Theme;
 import 'Show.dart';
+import 'showSend.dart';
 
 class SosPage extends StatefulWidget{
   final String mail;
@@ -262,30 +263,6 @@ class PageOneState extends State<PageOne> {
   void initState (){
     super.initState();
     initPlatformState();
-
-
-    sent = Sent(
-
-      _telSOS.text,
-      _subnameSOS.text,
-      _lastnameSOS.text,
-      _studentIDSOS.text,
-      _pathImage.text,
-      _pathImage2.text,
-        _pathImage3.text,
-        _pathImage4.text,
-        _pathImage5.text,
-      _event.text,
-      _security.text,
-      _ambulance.text,
-      _fireman.text,
-      read,
-      now.millisecondsSinceEpoch
-    );
-    sentLocation = SentLocation(
-        la,//lati
-      long,//longti
-    );
   }
   DatabaseReference itemRef;
   DatabaseReference itemRef1;
@@ -296,14 +273,6 @@ class PageOneState extends State<PageOne> {
         _locationNow =  result;
       });
     });
-    final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.
-    String mGroupId = database.reference().push().key;
-    _sendId.text = mGroupId;
-    itemRef = database.reference( ).child( 'SOS_Case' );
-    itemRef1= database.reference( ).child( 'SOS_Case' ).child(mGroupId)/*.child(formattedDate+"-- Uid => "+_uidSOS.text)*/;
-    itemRef.child(mGroupId)/*.child(formattedDate+"-- Uid => "+_uidSOS.text)*/.set( sent.toJson( ));
-    itemRef1.child( 'location' ).set( sentLocation.toJson( ) );
-    show();
   }
   void show(){
     showDialog(
@@ -395,8 +364,8 @@ class PageOneState extends State<PageOne> {
   File image5;
   File image6;
   int num = 0;
-  Sent sent;
-  SentLocation sentLocation;
+  /*Sent sent;
+  SentLocation sentLocation;*/
 
   Future <void> getImage() async{
     File img = await ImagePicker.pickImage(source: ImageSource.camera,maxHeight: 300.0,maxWidth: 300.0);
@@ -462,8 +431,6 @@ class PageOneState extends State<PageOne> {
       image5 = img5;
     });
   }
-
-
   final taxtdetail = TextField(
     keyboardType: TextInputType.text,
     controller: _event,
@@ -519,7 +486,8 @@ class PageOneState extends State<PageOne> {
 
     });
   }
-  int numClick=0;
+  //int numClick=0;
+   int numClick=0;
   Future<Null> _askedToLead() async {
     switch (await showDialog(
         context: context,
@@ -601,7 +569,6 @@ class PageOneState extends State<PageOne> {
                         constraints: const BoxConstraints.expand(),
                         child: _buildSOS(context),
                       ),
-
                     ],
                   ),
                 ),
@@ -720,68 +687,29 @@ class PageOneState extends State<PageOne> {
                     textColor: Colors.white70,
                     padding:EdgeInsets.all(10.0),
                     onPressed: () async{
-                      if(image != null &&image2 == null){
-                        await uploadFile();
-                         handleSubmit();
-                         check = true;
-                        //show();
-                        setDataLogOut();
-                      }else if(image != null &&image2 != null&&image3 == null&&image4 == null&&image5== null){
-                        await uploadFile();
-                        await uploadFile2();
-                         handleSubmit();
-                        //show();
-                        check = true;
-                        setDataLogOut();
-                      }else if(image != null &&image2 != null&&image3 != null&&image4 == null&&image5== null){
-                        await uploadFile();
-                        await uploadFile2();
-                        await uploadFile3();
-                         handleSubmit();
-                        setDataLogOut();
-                      }else if(image != null &&image2 != null&&image3 != null&&image4 != null&&image5== null){
-                        await uploadFile();
-                        await uploadFile2();
-                        await uploadFile3();
-                        await uploadFile4();
-                         handleSubmit();
-                        setDataLogOut();
-                      }else if(image != null &&image2 != null &&image3 != null&&image4 != null&&image5!= null){
-                        await uploadFile();
-                        await uploadFile2();
-                        await uploadFile3();
-                        await uploadFile4();
-                        await uploadFile5();
-                         handleSubmit();
-                        setDataLogOut();
-                      }
-                      else{
-                        handleSubmit();
-                        setDataLogOut();
-                      }
+                      var route = new MaterialPageRoute(
+                        builder: (BuildContext context) =>ShowSentScreen(
+                          ambulance: _ambulance.text,
+                          event: _event.text,
+                          fireman: _fireman.text,
+                          security: _security.text,
+                          subname: _subnameSOS.text,
+                          lastname: _lastnameSOS.text,
+                          studentID: _studentIDSOS.text,
+                          tel: _telSOS.text,
+                          fileImage1: image,
+                          fileImage2: image2,
+                          fileImage3: image3,
+                          fileImage4: image4,
+                          fileImage5: image5,
+                        ),
+                      );
+                      Navigator.of(context).pushReplacement(route);
                     }
                 ),
-      Table(
-        border: TableBorder.all(),
-        children: [
-          TableRow(
-              children: [
-                Text("image1"),
-              ]
-
-          ),
-          TableRow(
-              children: [
-                Text("image2"),
-              ]
-          )
-        ],
-      ),
-
               ],
             ),
           ),
-
           ],
         ),
         ),
@@ -857,18 +785,6 @@ class PageOneState extends State<PageOne> {
     final Uri downloadUrl = (await task.future).downloadUrl;
     _path = downloadUrl.toString();
     _pathImage5.text = _path;
-  }
-  Widget build_send(BuildContext context){
-    return        new Container(
-      child:
-      new Column(
-          children: <Widget>[
-            Center(
-              child: CircularProgressIndicator(),
-            )
-          ]
-      ),
-    );
   }
 }
 class PageTwo extends StatefulWidget {
@@ -1230,81 +1146,4 @@ class Data {
   Data(this.id, this.expanded, this.title);
 }
 bool read = false;
-class Sent {
-
-
-  String tel;
-  String subname;
-  String lastname;
-  String studentId;
-  String pathimage;
-  String pathimage2;
-  String pathimage3;
-  String pathimage4;
-  String pathimage5;
-  String event;
-  String security;
-  String ambulance;
-  String fireman;
-  bool read;
-  int date;
-
-
-  Sent( this.tel,this.subname,this.lastname,this.studentId,this.pathimage,this.pathimage2,this.pathimage3,this.pathimage4,this.pathimage5,this.event,this.security,this.ambulance,this.fireman,this.read,this.date);
-
-  Sent.fromSnapshot(DataSnapshot snapshot)
-      :
-        tel = snapshot.value["tel"],
-        subname = snapshot.value["subname"],
-        lastname = snapshot.value["lastname"],
-        studentId = snapshot.value["studentId"],
-        pathimage = snapshot.value["pathImage"],
-        pathimage2 = snapshot.value["pathImage2"],
-        pathimage3 = snapshot.value["pathImage3"],
-        pathimage4 = snapshot.value["pathImage4"],
-        pathimage5 = snapshot.value["pathImage5"],
-        event =  snapshot.value["event"],
-        security = snapshot.value["security"],
-        ambulance =  snapshot.value["ambulance"],
-        fireman  =  snapshot.value["fireman"],
-        read =  snapshot.value["read"],
-        date = snapshot.value["date"];
-
-  toJson() {
-    return {
-      "tel" : _telSOS.text,
-      "subname":_subnameSOS.text,
-      "lastname":_lastnameSOS.text,
-      "studentID":_studentIDSOS.text,
-      "pathImage" : _pathImage.text,
-      "pathImage2" : _pathImage2.text,
-      "pathImage3" : _pathImage3.text,
-      "pathImage4" : _pathImage4.text,
-      "pathImage5" : _pathImage5.text,
-      "event" : _event.text,
-      "security" : _security.text,
-      "ambulance" : _ambulance.text,
-      "fireman" : _fireman.text,
-      "read" : read,
-      "date" : DateTime.now().millisecondsSinceEpoch,
-    };
-  }
-}
-class SentLocation {
-  double lat;
-  double lng;
-  SentLocation(this.lat,this.lng);
-
-  SentLocation.fromSnapshot(DataSnapshot snapshot)
-      :
-        lat = snapshot.value["lat"],
-        lng = snapshot.value["lng"];
-
-  toJson() {
-    return {
-      "lat" : _locationNow["latitude"],
-      "lng" : _locationNow["longitude"],
-    };
-  }
-}
 
