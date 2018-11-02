@@ -29,7 +29,8 @@ class SosPage extends StatefulWidget{
   final String bloodSOS;
   final String pass;
   final VoidCallback onSignedOut;
-  SosPage({Key key, this.mail,this.name1,this.name2,this.tel1,this.Sid,this.uidsos,this.bloodSOS,this.pass,this.onSignedOut});
+  final String sentId;
+  SosPage({Key key, this.mail,this.name1,this.name2,this.tel1,this.Sid,this.uidsos,this.bloodSOS,this.pass,this.onSignedOut,this.sentId});
   @override
   _SosPage createState() => _SosPage();
 }
@@ -273,6 +274,7 @@ class PageOneState extends State<PageOne> {
         _locationNow =  result;
       });
     });
+
   }
   void show(){
     showDialog(
@@ -404,7 +406,7 @@ class PageOneState extends State<PageOne> {
       image3 = img3;
     });
   }
-  Future <void> getImage4() async{
+  /*Future <void> getImage4() async{
     File img4 = await ImagePicker.pickImage(source: ImageSource.camera,maxHeight: 300.0,maxWidth: 300.0);
     setState(() {
       image4 = img4;
@@ -417,8 +419,8 @@ class PageOneState extends State<PageOne> {
     setState(() {
       image4 = img4;
     });
-  }
-  Future <void> getImage5() async{
+  }*/
+  /*Future <void> getImage5() async{
     File img5 = await ImagePicker.pickImage(source: ImageSource.camera,maxHeight: 300.0,maxWidth: 300.0);
     setState(() {
       image5 = img5;
@@ -430,7 +432,7 @@ class PageOneState extends State<PageOne> {
     setState(() {
       image5 = img5;
     });
-  }
+  }*/
   final taxtdetail = TextField(
     keyboardType: TextInputType.text,
     controller: _event,
@@ -506,13 +508,13 @@ class PageOneState extends State<PageOne> {
                   }else if(numClick==2){
                     getImage3();
                     numClick++;
-                  }else if(numClick==3){
+                  }/*else if(numClick==3){
                     getImage4();
                     numClick++;
                   }else if(numClick==4){
                     getImage5();
                     numClick=0;
-                  }
+                  }*/
 
                   },
                 child: const Text('Camera'),
@@ -528,13 +530,13 @@ class PageOneState extends State<PageOne> {
                   }else if(numClick==2){
                     getImageG3();
                     numClick++;
-                  }else if(numClick==3){
+                  }/*else if(numClick==3){
                     getImageG4();
                     numClick++;
                   }else if(numClick==4){
                     getImageG5();
                     numClick=0;
-                  }
+                  }*/
                   },
                 child: const Text('Gallery'),
               ),
@@ -602,7 +604,7 @@ class PageOneState extends State<PageOne> {
                     textBaseline: TextBaseline.ideographic,
                     children: <Widget>[
                       new Container(
-                        child: image5 == null
+                        child: image3 == null
                             ? new RaisedButton(
                           highlightElevation: 10.0,
                           onPressed: _askedToLead,
@@ -627,16 +629,16 @@ class PageOneState extends State<PageOne> {
                             ? new Image.file(image3,width: 50.0,height: 50.0,)
                             : null,
                       ),
-                      new Container(
+                      /*new Container(
                         child: image4 != null
                             ? new Image.file(image4,width: 50.0,height: 50.0,)
                             : null,
-                      ),
-                      new Container(
+                      ),*/
+                      /*new Container(
                         child: image5 != null
                             ? new Image.file(image5,width: 50.0,height: 50.0,)
                             : null,
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -700,8 +702,8 @@ class PageOneState extends State<PageOne> {
                           fileImage1: image,
                           fileImage2: image2,
                           fileImage3: image3,
-                          fileImage4: image4,
-                          fileImage5: image5,
+                          //fileImage4: image4,
+                          //fileImage5: image5,
                         ),
                       );
                       Navigator.of(context).pushReplacement(route);
@@ -1146,4 +1148,79 @@ class Data {
   Data(this.id, this.expanded, this.title);
 }
 bool read = false;
+/*
+class Sent {
+  String tel;
+  String subname;
+  String lastname;
+  String studentId;
+  String pathimage;
+  String pathimage2;
+  String pathimage3;
+  String pathimage4;
+  String pathimage5;
+  String event;
+  String security;
+  String ambulance;
+  String fireman;
+  bool read;
+  int date;
 
+
+  Sent( this.tel,this.subname,this.lastname,this.studentId,this.pathimage,this.pathimage2,this.pathimage3,this.pathimage4,this.pathimage5,this.event,this.security,this.ambulance,this.fireman,this.read,this.date);
+
+  Sent.fromSnapshot(DataSnapshot snapshot)
+      :
+        tel = snapshot.value["tel"],
+        subname = snapshot.value["subname"],
+        lastname = snapshot.value["lastname"],
+        studentId = snapshot.value["studentId"],
+        pathimage = snapshot.value["pathImage"],
+        pathimage2 = snapshot.value["pathImage2"],
+        pathimage3 = snapshot.value["pathImage3"],
+        pathimage4 = snapshot.value["pathImage4"],
+        pathimage5 = snapshot.value["pathImage5"],
+        event =  snapshot.value["event"],
+        security = snapshot.value["security"],
+        ambulance =  snapshot.value["ambulance"],
+        fireman  =  snapshot.value["fireman"],
+        read =  snapshot.value["read"],
+        date = snapshot.value["date"];
+
+  toJson() {
+    return {
+      "tel" : _telSOS.text,
+      "subname":_subnameSOS.text,
+      "lastname":_lastnameSOS.text,
+      "studentID":_studentIDSOS.text,
+      "pathImage" : _pathImage.text,
+      "pathImage2" : _pathImage2.text,
+      "pathImage3" : _pathImage3.text,
+      "pathImage4" : _pathImage4.text,
+      "pathImage5" : _pathImage5.text,
+      "event" : _event.text,
+      "security" : _security.text,
+      "ambulance" : _ambulance.text,
+      "fireman" : _fireman.text,
+      "read" : read,
+      "date" : DateTime.now().millisecondsSinceEpoch,
+    };
+  }
+}
+class SentLocation {
+  double lat;
+  double lng;
+  SentLocation(this.lat,this.lng);
+
+  SentLocation.fromSnapshot(DataSnapshot snapshot)
+      :
+        lat = snapshot.value["lat"],
+        lng = snapshot.value["lng"];
+
+  toJson() {
+    return {
+      "lat" : _locationNow["latitude"],
+      "lng" : _locationNow["longitude"],
+    };
+  }
+}*/

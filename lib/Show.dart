@@ -102,7 +102,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   }
   Widget build(BuildContext context) {
-    //didChangeDependencies();
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body:Stack(

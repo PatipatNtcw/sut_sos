@@ -25,8 +25,6 @@ final _studentIDSOS = TextEditingController();
 final _pathImage = TextEditingController();
 final _pathImage2 = TextEditingController();
 final _pathImage3 = TextEditingController();
-final _pathImage4 = TextEditingController();
-final _pathImage5 = TextEditingController();
 final _event = TextEditingController();
 final _security = TextEditingController();
 final _ambulance = TextEditingController();
@@ -56,26 +54,25 @@ class ShowSentScreen extends StatefulWidget {
   File fileImage1;
   File fileImage2;
   File fileImage3;
-  File fileImage4;
-  File fileImage5;
 
-  ShowSentScreen({this.onSignedOut,this.tel,this.subname,this.lastname,this.studentID,this.event,this.security,this.ambulance,this.fireman,this.fileImage1,this.fileImage2,this.fileImage3,this.fileImage4,this.fileImage5});
+
+  ShowSentScreen({this.onSignedOut,this.tel,this.subname,this.lastname,this.studentID,this.event,this.security,this.ambulance,this.fireman,this.fileImage1,this.fileImage2,this.fileImage3});
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 class _SplashScreenState extends State<ShowSentScreen> {
- void next(){
-   super.didChangeDependencies();
-   new Future.delayed(new Duration(seconds: 1), (){
-     var rount = new MaterialPageRoute(
-         builder: (
-             BuildContext contex) => new SosPage(
-         )
-     );
-     Navigator.of( context ).pushReplacement( rount );
-   }
-   );
- }
+  void next(){
+    super.didChangeDependencies();
+    new Future.delayed(new Duration(seconds: 1), (){
+      var rount = new MaterialPageRoute(
+          builder: (
+              BuildContext contex) => new SosPage(
+          )
+      );
+      Navigator.of( context ).pushReplacement( rount );
+    }
+    );
+  }
   /*void didChangeDependencies() async{
     super.didChangeDependencies();
     new Future.delayed(new Duration(seconds: 1), (){
@@ -103,14 +100,14 @@ class _SplashScreenState extends State<ShowSentScreen> {
     }
   }
   void setValue(){
-      _telSOS.text = widget.tel ;
-      _subnameSOS.text = widget.subname ;
-      _lastnameSOS.text = widget.lastname ;
-      _studentIDSOS.text = widget.studentID ;
-      _event.text = widget.event ;
-      _security.text = widget.security ;
-      _ambulance.text = widget.ambulance ;
-      _fireman.text = widget.fireman ;
+    _telSOS.text = widget.tel ;
+    _subnameSOS.text = widget.subname ;
+    _lastnameSOS.text = widget.lastname ;
+    _studentIDSOS.text = widget.studentID ;
+    _event.text = widget.event ;
+    _security.text = widget.security ;
+    _ambulance.text = widget.ambulance ;
+    _fireman.text = widget.fireman ;
 
   }
   Future<Null> uploadFile() async {
@@ -142,26 +139,6 @@ class _SplashScreenState extends State<ShowSentScreen> {
     final Uri downloadUrl = (await task.future).downloadUrl;
     _path = downloadUrl.toString();
     _pathImage3.text = _path;
-  }
-  Future<Null> uploadFile4() async {
-    String numberImage;
-    String _path;
-    numberImage = "${Random().nextInt(100000)}.jpg";
-    final StorageReference fireStorageRef = FirebaseStorage.instance.ref().child(numberImage);
-    final StorageUploadTask task = fireStorageRef.putFile(widget.fileImage4);
-    final Uri downloadUrl = (await task.future).downloadUrl;
-    _path = downloadUrl.toString();
-    _pathImage4.text = _path;
-  }
-  Future<Null> uploadFile5() async {
-    String numberImage;
-    String _path;
-    numberImage = "${Random().nextInt(100000)}.jpg";
-    final StorageReference fireStorageRef = FirebaseStorage.instance.ref().child(numberImage);
-    final StorageUploadTask task = fireStorageRef.putFile(widget.fileImage5);
-    final Uri downloadUrl = (await task.future).downloadUrl;
-    _path = downloadUrl.toString();
-    _pathImage5.text = _path;
   }
   @override
   DatabaseReference itemRef;
@@ -210,8 +187,6 @@ class _SplashScreenState extends State<ShowSentScreen> {
         _pathImage.text,
         _pathImage2.text,
         _pathImage3.text,
-        _pathImage4.text,
-        _pathImage5.text,
         _event.text,
         _security.text,
         _ambulance.text,
@@ -247,55 +222,36 @@ class _SplashScreenState extends State<ShowSentScreen> {
     _pathImage.clear();
     _pathImage2.clear();
     _pathImage3.clear();
-    _pathImage4.clear();
-    _pathImage5.clear();
+
   }
   Future<void> sentValue()async{
 
-    if(widget.fileImage1 != null &&widget.fileImage2 == null&&widget.fileImage3 == null&&widget.fileImage4 == null&&widget.fileImage5== null){
-     await uploadFile();
+    if(widget.fileImage1 != null &&widget.fileImage2 == null&&widget.fileImage3 == null){
+      await uploadFile();
       handleSubmit();
       setDataLogOut();
-    }else if(widget.fileImage1 != null &&widget.fileImage2 != null&&widget.fileImage3 == null&&widget.fileImage4 == null&&widget.fileImage5== null){
+    }else if(widget.fileImage1 != null &&widget.fileImage2 != null&&widget.fileImage3 == null){
       await uploadFile();
       await uploadFile2();
-       handleSubmit();
-       setDataLogOut();
-    }else if(widget.fileImage1 != null &&widget.fileImage2 != null&&widget.fileImage3 != null&&widget.fileImage4 == null&&widget.fileImage5== null){
-      await uploadFile();
-      await uploadFile2();
-      await uploadFile3();
-       handleSubmit();
-      setDataLogOut();
-    }else if(widget.fileImage1 != null &&widget.fileImage2 != null&&widget.fileImage3 != null&&widget.fileImage4 != null&&widget.fileImage5== null){
-      await uploadFile();
-      await uploadFile2();
-      await uploadFile3();
-      await uploadFile4();
       handleSubmit();
       setDataLogOut();
-    }else if(widget.fileImage1 != null &&widget.fileImage2 != null &&widget.fileImage3 != null&&widget.fileImage4 != null&&widget.fileImage5!= null){
+    }else if(widget.fileImage1 != null &&widget.fileImage2 != null&&widget.fileImage3 != null){
       await uploadFile();
       await uploadFile2();
       await uploadFile3();
-      await uploadFile4();
-      await uploadFile5();
       handleSubmit();
       setDataLogOut();
     }
     else{
       handleSubmit();
-       setDataLogOut();
+      setDataLogOut();
     }
-    didChangeDependencies();
+   // didChangeDependencies();
   }
   Widget build(BuildContext context){
-    //didChangeDependencies();
-    //uploadFile();
     print(_subnameSOS.text);
     print(_lastnameSOS.text);
     print(_studentIDSOS.text);
-    //handleSubmit ();
     return Scaffold(
       body:Stack(
         fit: StackFit.expand,
@@ -307,20 +263,19 @@ class _SplashScreenState extends State<ShowSentScreen> {
                   children: <Widget>[
                     new Image.asset("assets/pics/logo_sut.png",width: 250.0,height: 500.0,),
                     new Container(
-                      padding: new EdgeInsets.all(32.0),
-                      child:
-                       Column(
-                         children: <Widget>[
-                           new Text("กำลังดำเนินการแจ้งเหตุฉุกเฉิน"),
-                           SizedBox(height: 8.0),
-                           LinearProgressIndicator(),
-                         ],
-                       )
+                        padding: new EdgeInsets.all(32.0),
+                        child:
+                        Column(
+                          children: <Widget>[
+                            new Text("กำลังดำเนินการแจ้งเหตุฉุกเฉิน"),
+                            SizedBox(height: 8.0),
+                            LinearProgressIndicator(),
+                          ],
+                        )
                       //LinearProgressIndicator(),
                     ),
                   ],
                 )
-
             ),
           ),
 
@@ -337,8 +292,6 @@ class Sent {
   String pathimage;
   String pathimage2;
   String pathimage3;
-  String pathimage4;
-  String pathimage5;
   String event;
   String security;
   String ambulance;
@@ -347,7 +300,7 @@ class Sent {
   int date;
 
 
-  Sent( this.tel,this.subname,this.lastname,this.studentId,this.pathimage,this.pathimage2,this.pathimage3,this.pathimage4,this.pathimage5,this.event,this.security,this.ambulance,this.fireman,this.read,this.date);
+  Sent( this.tel,this.subname,this.lastname,this.studentId,this.pathimage,this.pathimage2,this.pathimage3,this.event,this.security,this.ambulance,this.fireman,this.read,this.date);
 
   Sent.fromSnapshot(DataSnapshot snapshot)
       :
@@ -358,8 +311,6 @@ class Sent {
         pathimage = snapshot.value["pathImage"],
         pathimage2 = snapshot.value["pathImage2"],
         pathimage3 = snapshot.value["pathImage3"],
-        pathimage4 = snapshot.value["pathImage4"],
-        pathimage5 = snapshot.value["pathImage5"],
         event =  snapshot.value["event"],
         security = snapshot.value["security"],
         ambulance =  snapshot.value["ambulance"],
@@ -376,8 +327,6 @@ class Sent {
       "pathImage" : _pathImage.text,
       "pathImage2" : _pathImage2.text,
       "pathImage3" : _pathImage3.text,
-      "pathImage4" : _pathImage4.text,
-      "pathImage5" : _pathImage5.text,
       "event" : _event.text,
       "security" : _security.text,
       "ambulance" : _ambulance.text,
