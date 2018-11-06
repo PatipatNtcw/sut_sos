@@ -73,9 +73,9 @@ class _SplashScreenState extends State<ShowSentScreen> {
     }
     );
   }
-  /*void didChangeDependencies() async{
+  void didChangeDependencies() async{
     super.didChangeDependencies();
-    new Future.delayed(new Duration(seconds: 1), (){
+    new Future.delayed(new Duration(seconds: 13), (){
       var rount = new MaterialPageRoute(
           builder: (
               BuildContext contex) => new SosPage(
@@ -85,7 +85,7 @@ class _SplashScreenState extends State<ShowSentScreen> {
     }
     );
     print("next page");
-  }*/
+  }
   String error;
 
   bool currentWidget = true;
@@ -246,7 +246,7 @@ class _SplashScreenState extends State<ShowSentScreen> {
       handleSubmit();
       setDataLogOut();
     }
-   // didChangeDependencies();
+    didChangeDependencies();
   }
   Widget build(BuildContext context){
     print(_subnameSOS.text);

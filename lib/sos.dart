@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sut_sos/login/auth_provider.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:multiple_image_picker/multiple_image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:async';
 import 'dart:math';

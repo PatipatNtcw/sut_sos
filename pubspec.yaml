@@ -23,9 +23,8 @@ dependencies:
   firebase_auth : ^0.5.19
   firebase_storage: ^1.0.2
   camera:
-  image_picker: ^0.4.10
+  multiple_image_picker:
   location: ^1.4.1
-  map_view:
   intl: ^0.15.7
   url_launcher: ^4.0.1
   font_awesome_flutter:
