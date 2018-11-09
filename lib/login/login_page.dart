@@ -5,7 +5,6 @@ import 'package:sut_sos/login/auth_provider.dart';
 import 'package:sut_sos/registerUser.dart';
 import 'package:flutter/services.dart';
 import 'package:sut_sos/Show.dart';
-import 'package:sut_sos/testHome.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sut_sos/style/theme.dart' as Theme;
 import 'package:sut_sos/utils/bubble_indication_painter.dart';
